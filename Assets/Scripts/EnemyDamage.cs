@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyDamage : MonoBehaviour
 {
     public int enemyHealh = 3;
+    private NavMeshAgent agent;
+    public Transform _tr;
 
-    // Start is called before the first frame update
     
+    private void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        agent.SetDestination(_tr.position);
+       
+    }
 
-    // Update is called once per frame
-    
+   
 
     void OnCollisionEnter(Collision col)
     {
@@ -23,15 +30,14 @@ public class EnemyDamage : MonoBehaviour
             {
                 Destroy(col.gameObject, 0f);
             }
-             //удаляем врага с !КОТОРЫМ! столкнулись.
-
-
         }
 
+        
+
+
+        
+       
     }
 
-    public void Damage()
-    {
-        enemyHealh -= 1;
-    }
+    
 }
