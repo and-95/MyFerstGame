@@ -5,22 +5,17 @@ using UnityEngine;
 
 public class BulletMove : MonoBehaviour
 {
-    
+    private Rigidbody _rb;
     [SerializeField]
     private float _speed;
     
     void Update()
     {
+        //
+         _rb = GetComponent<Rigidbody>();
         transform.Translate(Vector3.forward * _speed * Time.deltaTime);
+        // _rb.AddForce(transform.forward * _speed * Time.time, ForceMode.Force);
     }
 
-    void OnCollisionEnter(Collision col)
-    {
-        
-        if (col.gameObject.name == "Enemy")
-        {  
-                Destroy(col.gameObject, 0f); //удаляем врага с !КОТОРЫМ! столкнулись.
-        }
 
-    }
 }

@@ -6,8 +6,9 @@ public class TrigerLogic : MonoBehaviour
 {
     public GameObject obj;
 
-    private void OnTriggerEnter()
-    {
-            Destroy(obj, 0f); //удаляем врага с !КОТОРЫМ! столкнулись.
+        private void OnTriggerEnter()
+    {  
+        Destroy(obj, 0f);
+        print("Дверь Открыта!");
     }
 }

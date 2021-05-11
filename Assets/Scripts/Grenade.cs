@@ -7,7 +7,7 @@ public class Grenade : MonoBehaviour
     [SerializeField]
     private GameObject shot;
     [SerializeField]
-    private GameObject shotSpawn;
+    private GameObject grenadeSpawn;
     [SerializeField]
     private float timeDestroy;
     private float fireRate = 0.5f;
@@ -19,7 +19,7 @@ public class Grenade : MonoBehaviour
         if (Input.GetKey(KeyCode.Q) && Time.time > nextFire) // движение влево
         {
             nextFire = Time.time + fireRate;
-            var a = Instantiate(shot, shotSpawn.transform.position, shotSpawn.transform.rotation);
+            var a = Instantiate(shot, grenadeSpawn.transform.position, grenadeSpawn.transform.rotation);
             Destroy(a, timeDestroy);
         }
     }
