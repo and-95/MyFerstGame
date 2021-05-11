@@ -1,46 +1,65 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+//эта строчка гарантирует что наш скрипт не завалится ести на плеере будет отсутствовать компонент Rigidbody
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMove : MonoBehaviour
 {
+    
+    public float Speed = 3f; //скорость передвижения
+    public float JumpForce = 110f;//сила прыжка
+    private bool _isGrounded;//земля
+    float rotSpeed = 3f;//скорость поворота
+    private Rigidbody _rb;
 
-    private string moveInputAxis = "Vertical";
-    private string turnInputAxis = "Horizontal";
 
-    public float rotationRate = 360f;
-    public float moveSpeed = 1;
-
-
-    // Use this for initialization
     void Start()
     {
-
+        _rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        float moveAxis = Input.GetAxis(moveInputAxis);
-        float turnAxis = Input.GetAxis(turnInputAxis);
-
-        //Обновляет каждый кадр наше положение и поворот
-        ApplyInput(moveAxis, turnAxis);
+        JumpLogic();
+        MovementLogic();
     }
 
-    private void ApplyInput(float moveInput, float turnInput)
+    private void MovementLogic()
     {
-        Move(moveInput);
-        Turn(turnInput);
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        transform.Translate(movement * Speed * Time.fixedDeltaTime);
+
+        float rotation = Input.GetAxis("HorizontalRotate") * rotSpeed;
+        transform.rotation *= Quaternion.Euler(0f, rotation, 0f);
     }
 
-    private void Move(float input)
+    private void JumpLogic()
     {
-        transform.Translate(Vector3.forward * input * moveSpeed);//Можно добавить Time.DeltaTime
+        if (Input.GetAxis("Jump") > 0)
+        {
+            if (_isGrounded)
+            {
+                _rb.AddForce(Vector3.up * JumpForce);
+            }
+        }
     }
 
-    private void Turn(float input)
+    void OnCollisionEnter(Collision collision)
     {
-        transform.Rotate(0, input * rotationRate * Time.deltaTime, 0);
+        IsGroundedUpate(collision, true);
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        IsGroundedUpate(collision, false);
+    }
+
+    private void IsGroundedUpate(Collision collision, bool value)
+    {
+        if (collision.gameObject.tag == ("Ground"))
+        {
+            _isGrounded = value;
+        }
     }
 }
