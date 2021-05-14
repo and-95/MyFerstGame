@@ -11,6 +11,12 @@ public class PlayerMove : MonoBehaviour
     float rotSpeed = 3f;//скорость поворота
     private Rigidbody _rb;
 
+  //  private Animator _anim;
+
+   // private void Awake()
+   // {
+   //     _anim = GetComponent<Animator>();
+   // }
 
     void Start()
     {
@@ -19,6 +25,8 @@ public class PlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
+      
+        
         JumpLogic();
         MovementLogic();
     }
@@ -57,7 +65,7 @@ public class PlayerMove : MonoBehaviour
 
     private void IsGroundedUpate(Collision collision, bool value)
     {
-        if (collision.gameObject.tag == ("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             _isGrounded = value;
         }

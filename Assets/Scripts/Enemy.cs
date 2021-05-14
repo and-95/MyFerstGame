@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private int health = 3;
-    private GameObject obj;
-    
-
-
-    // Update is called once per frame
+    private int _health = 3;
+    private GameObject _enemyObj;
+ 
     void Update()
     {
         
-        if (health == 0)
+        if (_health == 0)
         {
-            obj = GameObject.FindWithTag("Enemy");
-            Destroy(obj);
+            _enemyObj = EnemySingleton.Instance.gameObject;
+            Destroy(_enemyObj);
         }
         
     }
@@ -26,8 +23,8 @@ public class Enemy : MonoBehaviour
 
         if (col.gameObject.layer == 7)
         {
-            health -= 1; 
-            print("-1 HP :"+ health);
+            _health -= 1; 
+            print("-1 HP :"+ _health);
             Destroy(col.gameObject, 0f);
 
         }

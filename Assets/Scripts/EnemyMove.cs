@@ -20,12 +20,12 @@ public class EnemyMove : MonoBehaviour
 	private float curTimeout;
 	private int wayCount;
 	private bool isTarget;
-	public static Transform player;
+	private static Transform player;
 
 	void Start()
 	{
 		agent = GetComponent<NavMeshAgent>();
-		player = GameObject.FindGameObjectWithTag("Player").transform;
+		player = PlayerSingleton.Instance.transform;
 	}
 
 

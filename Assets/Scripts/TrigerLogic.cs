@@ -6,7 +6,7 @@ public class TrigerLogic : MonoBehaviour
 {
     public GameObject obj;
 
-        private void OnTriggerEnter()
+        private void OnTriggerEnter(Collider other)
     {  
         Destroy(obj, 0f);
         print("Дверь Открыта!");
