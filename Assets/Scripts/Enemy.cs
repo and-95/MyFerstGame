@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     private int _health = 3;
     private GameObject _enemyObj;
- 
+    public Text _indicator;
     void Update()
     {
-        
+        _indicator.text = "" + _health;
         if (_health == 0)
         {
             _enemyObj = EnemySingleton.Instance.gameObject;
